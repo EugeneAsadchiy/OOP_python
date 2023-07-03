@@ -1,35 +1,10 @@
 # Напишите определение класса DictMixin
 class DictMixin:
+    def __repr__(self):
+        return str(self.__dict__)
+
     def to_dict(self):
-        answer = dict()
-
-        for key, value in self.__dict__.items():
-            d = dict()
-            # print(answer)
-            if isinstance(value, DictMixin):
-                # print(value.__dict__)
-                for i, j in value.__dict__.items():
-                    d.update([(i, j)])
-                answer.update([(key, d)])
-            elif isinstance(value, list):
-                spisok=[]
-                for names in value:
-                    driens = dict()
-                    for key1, value1 in names.__dict__.items():
-                        if isinstance(value1, DictMixin):
-                            d = dict()
-                            # print(value.__dict__)
-                            for l, m in value1.__dict__.items():
-                                d.update([(l, m)])
-                            driens.update([(key1, d)])
-                        else:
-                            driens.update([(key1, value1)])
-
-                    spisok.append(driens)
-                answer.update([(key, spisok)])
-            else:
-                answer.update([(key, value)])
-        return answer
+        return eval(self.__repr__())
 
 
 # Ниже код для проверки миксина DictMixin
